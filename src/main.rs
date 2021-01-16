@@ -92,6 +92,7 @@ fn main() -> anyhow::Result<()> {
     let mut window: PistonWindow = WindowSettings::new("sdiff", [500, 500])
         .exit_on_esc(true)
         .graphics_api(opengl)
+        .vsync(true)
         .build()
         .unwrap();
 
