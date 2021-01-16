@@ -73,14 +73,14 @@ fn build_textures(
         Flip::None,
         &TextureSettings::new(),
     )
-    .or_else(|e| Err(anyhow::anyhow!("{}", e)))?;
+    .map_err(|e| anyhow::anyhow!("{}", e))?;
     let image_1_texture: G2dTexture = Texture::from_path(
         &mut window.create_texture_context(),
         &cli_params.second_image_path,
         Flip::None,
         &TextureSettings::new(),
     )
-    .or_else(|e| Err(anyhow::anyhow!("{}", e)))?;
+    .map_err(|e| anyhow::anyhow!("{}", e))?;
     Ok((image_0_texture, image_1_texture))
 }
 
@@ -111,9 +111,7 @@ fn main() -> anyhow::Result<()> {
             println!("{:?}", window.size());
         }
 
-        let clamped_cut_at = if cut_at <= 0 {
-            0
-        } else if cut_at > dimensions.0 {
+        let clamped_cut_at = if cut_at > dimensions.0 {
             dimensions.0
         } else {
             cut_at
