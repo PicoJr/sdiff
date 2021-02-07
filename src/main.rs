@@ -100,16 +100,11 @@ fn main() -> anyhow::Result<()> {
 
     let image = Image::new();
 
-    let mut cut_at = dimensions.0 / 3;
+    let mut cut_at = dimensions.0 / 2;
     window.set_lazy(true);
     while let Some(e) = window.next() {
         if let Some(pos) = e.mouse_cursor_args() {
             cut_at = pos[0].abs() as u32;
-        }
-
-        if let Some(Button::Keyboard(Key::Space)) = e.press_args() {
-            println!("{}", cut_at);
-            println!("{:?}", window.size());
         }
 
         let clamped_cut_at = if cut_at > dimensions.0 {
